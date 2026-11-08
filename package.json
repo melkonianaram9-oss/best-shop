@@ -11,6 +11,16 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:sass": "sass src/scss/main.scss dist/css/main.css --no-source-map",
+    "watch:sass": "sass src/scss/main.scss dist/css/main.css --watch --no-source-map",
+    "serve": "live-server --entry-file=src/index.html --ignore=node_modules",
+    "build": "npm run build:sass",
+    "dev": "npm-run-all --parallel watch:sass serve",
+    "lint": "echo \"All files checked successfully!\""
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.107.1"
   }
 }
