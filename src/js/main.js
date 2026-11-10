@@ -42,7 +42,7 @@ async function loadProducts() {
     }
 
     if (selectedContainer) {
-      const selected = products.filter(p => p.blocks ?.| p.blocks.includes('Selected Products'));
+      const selected = products.filter(p => p.blocks?.includes('Selected Products'));
       selectedContainer.innerHTML = selected.map(createProductCard).join('');
     }
   } catch (error) {

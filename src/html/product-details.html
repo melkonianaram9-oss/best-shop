@@ -125,6 +125,62 @@
 
     .footer-contacts-row { border-top: 1px solid #eee; padding-top: 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; font-size: 0.82rem; color: #555; }
     .footer-copy { text-align: center; border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; font-size: 0.78rem; color: #999; }
+    /* Контейнер левой колонки с картинками */
+.product-hero__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* Главное большое фото */
+.product-hero__main-img-wrap {
+  width: 100%;
+  height: 480px;
+  background: #f8f8f8;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-hero__main-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Ряд миниатюр снизу */
+.product-hero__thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.product-hero__thumb {
+  width: 100%;
+  height: 90px;
+  object-fit: contain;
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.product-hero__thumb:hover {
+  border-color: #B8236B;
+}
+
+.product-hero__thumb--active {
+  border: 2px solid #B8236B;
+}
   </style>
 </head>
 
@@ -180,17 +236,18 @@
   <main class="product-page-wrap">
     
     <section class="product-hero">
-      <div class="product-hero__gallery">
-        <div class="product-hero__main-img-box">
-          <img id="main-product-img" src="https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=700&q=80" alt="Suitcase">
-        </div>
-        <div class="product-hero__thumbs">
-          <img class="product-hero__thumb product-hero__thumb--active" src="https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=200&q=80" alt="thumb">
-          <img class="product-hero__thumb" src="https://images.unsplash.com/photo-1581553680321-4fffae59fccd?auto=format&fit=crop&w=200&q=80" alt="thumb">
-          <img class="product-hero__thumb" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=200&q=80" alt="thumb">
-          <img class="product-hero__thumb" src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=200&q=80" alt="thumb">
-        </div>
-      </div>
+     <div class="product-hero__gallery">
+  <div class="product-hero__main-img-wrap">
+    <img id="main-product-img" src="https://case-shop.kiev.ua/imgs/s10958.jpg" alt="Suitcase">
+  </div>
+  
+  <div class="product-hero__thumbnails">
+    <img src="https://cdn.comfy.ua/media/catalog/product/s/n/snimok-jekrana-2026-09-30-v-09dot48dot09_7aa57.png" alt="Thumb 1" class="product-hero__thumb">
+    <img src="https://case-shop.kiev.ua/imgs/s10958.jpg" alt="Thumb 2" class="product-hero__thumb product-hero__thumb--active">
+    <img src="https://img.joomcdn.net/431457e2762f7940868bf763bc48bf46fa97e3a1_original.jpeg" alt="Thumb 3" class="product-hero__thumb">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWaAtu92sfQRrh7hUDeEImaGgW3XaopnGeLS18C53yBA&s" alt="Thumb 4" class="product-hero__thumb">
+  </div>
+</div>
 
       <div class="product-hero__details">
         <h1 class="product-hero__title" id="product-title">Global Explorer Max Comfort Suitcase Pro</h1>
