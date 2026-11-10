@@ -37,12 +37,12 @@ async function loadProducts() {
     const selectedContainer = document.getElementById('selected-products-grid');
 
     if (newArrivalsContainer) {
-      const arrivals = products.filter(p => p.blocks && p.blocks.includes('New Products Arrival'));
+      const arrivals = products.filter(p => p.blocks ?. p.blocks.includes('New Products Arrival'));
       newArrivalsContainer.innerHTML = arrivals.map(createProductCard).join('');
     }
 
     if (selectedContainer) {
-      const selected = products.filter(p => p.blocks && p.blocks.includes('Selected Products'));
+      const selected = products.filter(p => p.blocks ?.| p.blocks.includes('Selected Products'));
       selectedContainer.innerHTML = selected.map(createProductCard).join('');
     }
   } catch (error) {

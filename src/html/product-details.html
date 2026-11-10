@@ -212,33 +212,33 @@
 
         <!-- Селекторы опций по макету -->
         <div class="option-group">
-          <label>Size</label>
-          <select class="option-select">
-            <option>Choose option ⌵</option>
-            <option>Small (Cabin)</option>
-            <option>Medium (Check-in)</option>
-            <option>Large (Trunk)</option>
-          </select>
-        </div>
+  <label for="product-size">Size</label>
+  <select id="product-size" class="option-select">
+    <option>Choose option ⌵</option>
+    <option>Small (Cabin)</option>
+    <option>Medium (Check-in)</option>
+    <option>Large (Trunk)</option>
+  </select>
+</div>
 
-        <div class="option-group">
-          <label>Color</label>
-          <select class="option-select">
-            <option>Choose option ⌵</option>
-            <option>Yellow</option>
-            <option>Black</option>
-            <option>Blue</option>
-          </select>
-        </div>
+<div class="option-group">
+  <label for="product-color">Color</label>
+  <select id="product-color" class="option-select">
+    <option>Choose option ⌵</option>
+    <option>Yellow</option>
+    <option>Black</option>
+    <option>Blue</option>
+  </select>
+</div>
 
-        <div class="option-group">
-          <label>Category</label>
-          <select class="option-select">
-            <option>Choose option ⌵</option>
-            <option>Suitcases</option>
-            <option>Travel Sets</option>
-          </select>
-        </div>
+<div class="option-group">
+  <label for="product-category">Category</label>
+  <select id="product-category" class="option-select">
+    <option>Choose option ⌵</option>
+    <option>Suitcases</option>
+    <option>Travel Sets</option>
+  </select>
+</div>
 
         <div class="product-purchase">
           <div class="qty-picker">
@@ -537,9 +537,9 @@
       });
     });
   </script>
-  <script type="module">
-    import { initAuthModal } from '/src/js/auth-modal.js';
-    initAuthModal();
-  </script>
+  <script>
+  import { addToCart, updateCartBadge } from '../js/cart.js';
+import { initAuthModal } from '../js/auth-modal.js';
+</script>
 </body>
 </html>
