@@ -82,8 +82,8 @@
     .footer-copy { text-align: center; border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; font-size: 0.78rem; color: #999; }
   </style>
   <script type="module">
-    import { updateCartBadge } from '/src/js/cart.js';
-    updateCartBadge();
+   import { addToCart, updateCartBadge } from '../js/cart.js';
+import { initAuthModal } from '../js/auth-modal.js';
   </script>
 </head>
 <body>
@@ -176,36 +176,28 @@
 
         <form id="contact-feedback-form">
           <div class="form-field-group">
-            <label>Your Name <span>*</span></label>
-            <input type="text" class="feedback-input" required>
+            <label for="contact-name">Your Name <span>*</span></label>
+            <input type="text" id="contact-name" class="feedback-input" required>
           </div>
+
           <div class="form-field-group">
-            <label>Your Email Address <span>*</span></label>
-            <input type="email" class="feedback-input" required>
+            <label for="contact-email">Your Email Address <span>*</span></label>
+            <input type="email" id="contact-email" class="feedback-input" required>
           </div>
+
           <div class="form-field-group">
-            <label>Topic <span>*</span></label>
-            <input type="text" class="feedback-input" required>
+            <label for="contact-topic">Topic <span>*</span></label>
+            <input type="text" id="contact-topic" class="feedback-input" required>
           </div>
+
           <div class="form-field-group">
-  <label for="contact-name">Your Name <span>*</span></label>
-  <input type="text" id="contact-name" class="feedback-input" required>
-</div>
+            <label for="contact-message">Your Message <span>*</span></label>
+            <textarea id="contact-message" class="feedback-textarea" required></textarea>
+          </div>
 
-<div class="form-field-group">
-  <label for="contact-email">Your Email Address <span>*</span></label>
-  <input type="email" id="contact-email" class="feedback-input" required>
-</div>
-
-<div class="form-field-group">
-  <label for="contact-topic">Topic <span>*</span></label>
-  <input type="text" id="contact-topic" class="feedback-input" required>
-</div>
-
-<div class="form-field-group">
-  <label for="contact-message">Your Message <span>*</span></label>
-  <textarea id="contact-message" class="feedback-textarea" required></textarea>
-</div>
+          <button type="submit" class="btn-feedback-send">SEND</button>
+        </form>
+      </div>
     </section>
   </main>
 

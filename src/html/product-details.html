@@ -128,8 +128,8 @@
   </style>
 </head>
 <script type="module">
-    import { updateCartBadge } from '/src/js/cart.js';
-    updateCartBadge();
+   import { addToCart, updateCartBadge } from '../js/cart.js';
+import { initAuthModal } from '../js/auth-modal.js';
   </script>
 <body>
 
@@ -469,7 +469,8 @@
   </footer>
 
   <script type="module">
-    import { addToCart, updateCartBadge } from '/src/js/cart.js';
+    import { addToCart, updateCartBadge } from '../js/cart.js';
+import { initAuthModal } from '../js/auth-modal.js';
 
     document.addEventListener('DOMContentLoaded', async () => {
       updateCartBadge();
@@ -537,9 +538,6 @@
       });
     });
   </script>
-  <script>
-  import { addToCart, updateCartBadge } from '../js/cart.js';
-import { initAuthModal } from '../js/auth-modal.js';
-</script>
+  
 </body>
 </html>
