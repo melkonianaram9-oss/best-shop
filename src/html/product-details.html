@@ -127,10 +127,7 @@
     .footer-copy { text-align: center; border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; font-size: 0.78rem; color: #999; }
   </style>
 </head>
-<script type="module">
-   import { addToCart, updateCartBadge } from '../js/cart.js';
-import { initAuthModal } from '../js/auth-modal.js';
-  </script>
+
 <body>
 
   <!-- Header -->
@@ -474,6 +471,8 @@ import { initAuthModal } from '../js/auth-modal.js';
 
     document.addEventListener('DOMContentLoaded', async () => {
       updateCartBadge();
+      updateCartBadge();
+    initAuthModal();
 
       // Галерея превью
       const mainImg = document.getElementById('main-product-img');
