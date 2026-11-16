@@ -1,0 +1,19 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+@import 'base/reset';
+@import 'base/fonts';
+
+// Шапка и футер
+@import 'layouts/header';
+@import 'layouts/footer';
+
+// Компоненты (в единственном числе, как на вкладках редактора)
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/product-card';
+
+// Страницы
+@import 'pages/catalog';
+@import 'pages/product-details';
+@import 'pages/cart';
+@import 'pages/about';

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cart | BEST SHOP</title>
+  <link rel="stylesheet" href="/dist/css/main.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { color: #222222; background: #ffffff; }
+
+    /* HEADER */
+    .header { width: 100%; background: #ffffff; }
+    .header__top { max-width: 1240px; margin: 0 auto; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .header__socials { display: flex; align-items: center; gap: 14px; flex: 1; }
+    .header__social-link { color: #111111; text-decoration: none; display: inline-flex; }
+    .header__social-link svg { width: 16px; height: 16px; fill: currentColor; }
+    .header__logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #B8236B; font-size: 1.55rem; font-weight: 800; }
+    .header__logo svg { stroke: #B8236B; }
+    .header__actions { display: flex; align-items: center; justify-content: flex-end; gap: 18px; flex: 1; }
+    .header__btn { position: relative; color: #111111; text-decoration: none; display: inline-flex; }
+    .header__cart-badge { position: absolute; top: -6px; right: -8px; background: #B8236B; color: #fff; font-size: 0.65rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .header__divider { width: 100%; height: 1px; background-color: #ededed; }
+    .header__nav { max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: center; }
+    .header__menu { display: flex; gap: 36px; list-style: none; }
+    .header__link { text-decoration: none; font-size: 0.95rem; font-weight: 600; color: #222222; }
+    .header__link:hover, .header__link--active { color: #B8236B; }
+
+    /* BANNER */
+    .page-hero {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      margin-bottom: 50px;
+    }
+    .page-hero__title { font-size: 2.8rem; font-weight: 800; }
+
+    /* CART PAGE */
+    .cart-container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+    .cart-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+    .cart-table thead tr { background-color: #55524f; color: #ffffff; }
+    .cart-table th { padding: 14px 16px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; text-align: center; }
+    .cart-table th:nth-child(2) { text-align: left; }
+    .cart-table tbody tr { border-bottom: 1px solid #d45d8b; }
+    .cart-table td { padding: 20px 16px; text-align: center; vertical-align: middle; font-size: 0.95rem; }
+    .cart-table td:nth-child(2) { text-align: left; font-weight: 700; }
+    .cart-prod-img { width: 70px; height: 90px; object-fit: contain; background: #fafafa; border-radius: 2px; }
+    
+    .cart-qty-ctrl { display: inline-flex; align-items: center; gap: 14px; font-weight: 700; font-size: 1rem; }
+    .cart-qty-ctrl button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #111; font-weight: 800; padding: 2px 6px; }
+    .btn-trash { background: none; border: none; cursor: pointer; color: #B8236B; font-size: 1.1rem; }
+
+    .cart-footer-grid { display: grid; grid-template-columns: 1fr 400px; gap: 40px; align-items: start; margin-top: 40px; }
+    .cart-actions-left { display: flex; gap: 16px; }
+    .btn-cart-action { padding: 12px 24px; background-color: #B8236B; color: #fff; font-size: 0.82rem; font-weight: 800; text-transform: uppercase; border: none; cursor: pointer; text-decoration: none; border-radius: 2px; }
+
+    .cart-totals-card { background-color: #4a4744; color: #ffffff; padding: 36px 30px; border-radius: 2px; }
+    .cart-totals-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; font-size: 1rem; font-weight: 700; border-bottom: 1px solid #B8236B; }
+    .cart-totals-row--last { border-bottom: none; padding-top: 18px; margin-bottom: 24px; font-size: 1.25rem; font-weight: 800; }
+    .btn-checkout { width: 100%; height: 46px; background-color: #B8236B; color: #ffffff; border: none; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; cursor: pointer; border-radius: 2px; }
+
+    /* BENEFITS */
+    .benefits-bar { background: #3c3a38; padding: 36px 20px; color: #ffffff; }
+    .benefits-bar__inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .benefit-item { display: flex; align-items: center; gap: 14px; }
+    .benefit-item svg { width: 28px; height: 28px; stroke: #4dd0b6; fill: none; flex-shrink: 0; }
+    .benefit-item p { font-size: 0.8rem; line-height: 1.4; color: #d0d0d0; }
+
+    /* FOOTER */
+    .footer-main { max-width: 1200px; margin: 50px auto 30px; padding: 0 20px; }
+    .footer-copy { text-align: center; border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; font-size: 0.78rem; color: #999; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__top">
+      <div class="header__socials">
+        <a href="https://facebook.com" target="_blank" class="header__social-link"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://twitter.com" target="_blank" class="header__social-link"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+        <a href="https://instagram.com" target="_blank" class="header__social-link"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      </div>
+
+      <a href="/src/index.html" class="header__logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
+        <span>BEST SHOP</span>
+      </a>
+
+      <div class="header__actions">
+        <a href="#" class="header__btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+        <a href="/src/html/cart.html" class="header__btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="header__cart-badge" id="cart-badge">3</span>
+        </a>
+      </div>
+    </div>
+    <div class="header__divider"></div>
+    <nav class="header__nav">
+      <ul class="header__menu">
+        <li><a href="/src/index.html" class="header__link">Home</a></li>
+        <li><a href="/src/html/catalog.html" class="header__link">Catalog ⌵</a></li>
+        <li><a href="/src/html/about.html" class="header__link">About Us</a></li>
+        <li><a href="/src/html/contact.html" class="header__link">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <h1 class="page-hero__title">My Cart</h1>
+  </div>
+
+  <main class="cart-container">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>IMAGE</th>
+          <th>PRODUCT NAME</th>
+          <th>PRICE</th>
+          <th>QUANTITY</th>
+          <th>TOTAL</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody id="cart-table-body"></tbody>
+    </table>
+
+    <div class="cart-footer-grid">
+      <div class="cart-actions-left">
+        <a href="/src/html/catalog.html" class="btn-cart-action">CONTINUE SHOPPING</a>
+        <button type="button" class="btn-cart-action" id="btn-clear-cart">CLEAR SHOPPING CART</button>
+      </div>
+
+      <div class="cart-totals-card">
+        <div class="cart-totals-row">
+          <span>Sub Total</span>
+          <span id="summary-subtotal">$0</span>
+        </div>
+        <div class="cart-totals-row">
+          <span>Shipping</span>
+          <span id="summary-shipping">$30</span>
+        </div>
+        <div class="cart-totals-row cart-totals-row--last">
+          <span>Total</span>
+          <span id="summary-total">$0</span>
+        </div>
+        <button type="button" class="btn-checkout" onclick="alert('Order completed!')">CHECKOUT</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Our Benefits -->
+  <section class="benefits-bar">
+    <div class="benefits-bar__container">
+      <h3 class="benefits-bar__title">Our Benefits</h3>
+      <div class="benefits-bar__grid">
+        <div class="benefit-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4dd0b6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <p>Velit nisl sodales eget donec quis. volutpat orci.</p>
+        </div>
+        <div class="benefit-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4dd0b6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          <p>Dolor eu varius. Morbi fermentum velit nisl.</p>
+        </div>
+        <div class="benefit-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4dd0b6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <p>Malesuada fames ac ante ipsum primis in faucibus.</p>
+        </div>
+        <div class="benefit-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4dd0b6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+          </svg>
+          <p>Nisl sodales eget donec quis. volutpat orci.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-main">
+    <div class="footer-main__container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>About Us</h4>
+          <ul>
+            <li><a href="/src/html/about.html">Organisation</a></li>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Clients</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Interesting Links</h4>
+          <ul>
+            <li><a href="#">Photo Gallery</a></li>
+            <li><a href="/src/html/about.html">Our Team</a></li>
+            <li><a href="#">Socials</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Achievements</h4>
+          <ul>
+            <li><a href="#">Winning Awards</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Our Amazing Clients</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <p>Bendum dolor eu varius. Morbi fermentum velitsodales egetonec. volutpat orci. Sed ipsum felis, tristique egestas et, convallis ac velitn consequat nec luctus.</p>
+        </div>
+      </div>
+
+      <div class="footer-contacts-row">
+        <div class="footer-shipping">
+          <strong>Shipping Information</strong>
+          <p>Nulla eleifend pulvinar purus, molestie euismod odio imperdiet ac. Ut sit amet erat nec nibh rhoncus varius in non lorem. Donec interdum, lectus in convallis pulvinar, enim elit porta sapien, vel finibus erat felis sed neque.</p>
+        </div>
+        <div class="footer-contact-list">
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B8236B" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Phone: (+63) 236 6322</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B8236B" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Mon - Fri: 10am - 6pm<br>Sat - Sun: 10am - 6pm</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B8236B" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>public@news.com</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B8236B" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>639 Jade Valley, Washington Dc</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-copy">&copy; Copyright 2025</div>
+    </div>
+  </footer>
+
+  <script>
+    const defaultData = [
+      { id: 'SU001', name: 'Nomad Haven', price: 250, quantity: 1, imageUrl: 'https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=150&q=80' },
+      { id: 'SU002', name: 'WanderWay Kid', price: 690, quantity: 1, imageUrl: 'https://images.unsplash.com/photo-1581553680321-4fffae59fccd?auto=format&fit=crop&w=150&q=80' },
+      { id: 'SU003', name: 'Crossroads Elite', price: 1200, quantity: 1, imageUrl: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=150&q=80' }
+    ];
+
+    function getItems() {
+      const raw = localStorage.getItem('best_shop_cart');
+      if (!raw) {
+        localStorage.setItem('best_shop_cart', JSON.stringify(defaultData));
+        return defaultData;
+      }
+      try {
+        const parsed = JSON.parse(raw);
+        return parsed.length ? parsed : [];
+      } catch (e) {
+        return defaultData;
+      }
+    }
+
+    function saveAndRender(items) {
+      localStorage.setItem('best_shop_cart', JSON.stringify(items));
+      render();
+    }
+
+    function render() {
+      const items = getItems();
+      const tbody = document.getElementById('cart-table-body');
+      const badge = document.getElementById('cart-badge');
+      const subtotalEl = document.getElementById('summary-subtotal');
+      const totalEl = document.getElementById('summary-total');
+
+      if (!items.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="padding: 40px; color: #888;">Your cart is empty.</td></tr>';
+        subtotalEl.textContent = '$0';
+        totalEl.textContent = '$0';
+        badge.textContent = '0';
+        return;
+      }
+
+      let subtotal = 0;
+      let count = 0;
+
+      tbody.innerHTML = items.map((item, idx) => {
+        const total = item.price * item.quantity;
+        subtotal += total;
+        count += item.quantity;
+        return `
+          <tr>
+            <td><img src="${item.imageUrl}" class="cart-prod-img" alt="${item.name}"></td>
+            <td>${item.name}</td>
+            <td>$${item.price}</td>
+            <td>
+              <div class="cart-qty-ctrl">
+                <button type="button" onclick="changeQty(${idx}, -1)">-</button>
+                <span>${item.quantity}</span>
+                <button type="button" onclick="changeQty(${idx}, 1)">+</button>
+              </div>
+            </td>
+            <td>$${total}</td>
+            <td><button type="button" class="btn-trash" onclick="deleteItem(${idx})">🗑</button></td>
+          </tr>
+        `;
+      }).join('');
+
+      subtotalEl.textContent = `$${subtotal}`;
+      totalEl.textContent = `$${subtotal + 30}`;
+      badge.textContent = count;
+    }
+
+    window.changeQty = function(idx, delta) {
+      const items = getItems();
+      items[idx].quantity += delta;
+      if (items[idx].quantity <= 0) items.splice(idx, 1);
+      saveAndRender(items);
+    };
+
+    window.deleteItem = function(idx) {
+      const items = getItems();
+      items.splice(idx, 1);
+      saveAndRender(items);
+    };
+
+    document.getElementById('btn-clear-cart').onclick = function() {
+      saveAndRender([]);
+    };
+
+    render();
+  </script>
+  
+</body>
+</html>

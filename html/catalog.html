@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalog | BEST SHOP</title>
+  <link rel="stylesheet" href="../../dist/css/main.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { color: #222; background: #fff; }
+
+    .header { width: 100%; background: #ffffff; }
+    .header__top { max-width: 1240px; margin: 0 auto; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .header__socials { display: flex; align-items: center; gap: 14px; flex: 1; }
+    .header__social-link { color: #111; text-decoration: none; display: inline-flex; }
+    .header__social-link svg { width: 16px; height: 16px; fill: currentColor; }
+    .header__logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #B8236B; font-size: 1.55rem; font-weight: 800; }
+    .header__logo svg { stroke: #B8236B; }
+    .header__actions { display: flex; align-items: center; justify-content: flex-end; gap: 18px; flex: 1; }
+    .header__btn { position: relative; color: #111; text-decoration: none; display: inline-flex; }
+    .header__cart-badge { position: absolute; top: -6px; right: -8px; background: #B8236B; color: #fff; font-size: 0.65rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .header__divider { width: 100%; height: 1px; background-color: #ededed; }
+    .header__nav { max-width: 1240px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: center; }
+    .header__menu { display: flex; gap: 36px; list-style: none; }
+    .header__link { text-decoration: none; font-size: 0.95rem; font-weight: 600; color: #222; }
+    .header__link:hover, .header__link--active { color: #B8236B; }
+
+    .catalog-wrap {
+      max-width: 1240px;
+      margin: 40px auto 80px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 40px;
+      align-items: start;
+    }
+    .catalog-content { display: flex; flex-direction: column; width: 100%; }
+    .catalog-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      width: 100%;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .catalog-select {
+      height: 38px;
+      padding: 0 14px;
+      border: 1px solid #dcdcdc;
+      border-radius: 2px;
+      background: #ffffff;
+      outline: none;
+      cursor: pointer;
+      color: #333;
+    }
+    .catalog-filter-panel {
+      width: 100%;
+      background: #fafafa;
+      border: 1px solid #ededed;
+      padding: 24px 24px 0;
+      margin-bottom: 34px;
+      box-sizing: border-box;
+    }
+    .filter-dropdowns-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .filter-dropdown label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 6px;
+    }
+    .filter-select {
+      width: 100%;
+      height: 38px;
+      border: 1px solid #dcdcdc;
+      border-radius: 2px;
+      padding: 0 10px;
+      font-size: 0.85rem;
+      background: #ffffff;
+      outline: none;
+      cursor: pointer;
+    }
+    .filter-actions-bar {
+      border-top: 2px solid #B92770;
+      padding: 16px 0 20px;
+      display: flex;
+      gap: 14px;
+    }
+    .btn-filter-action {
+      padding: 10px 22px;
+      background: #B92770;
+      color: #ffffff;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .btn-filter-action:hover { background: #9c1b59; }
+
+    .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+    .product-card { position: relative; text-align: center; }
+    .product-card__badge { position: absolute; top: 10px; left: 10px; background: #B8236B; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; }
+    .product-card__img-link { display: block; width: 100%; height: 260px; background: #f2f2f2; overflow: hidden; margin-bottom: 12px; }
+    .product-card__img-link img { width: 100%; height: 100%; object-fit: cover; }
+    .product-card__title { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+    .product-card__title a { color: #111; text-decoration: none; }
+    .product-card__price { font-size: 0.95rem; font-weight: 800; color: #111; margin-bottom: 10px; }
+    .product-card__btn { padding: 7px 18px; background: #B8236B; color: #fff; border: none; font-weight: 700; font-size: 0.8rem; cursor: pointer; border-radius: 2px; }
+
+    .catalog-pagination { display: flex; gap: 8px; justify-content: flex-start; }
+    .catalog-pagination button { padding: 6px 14px; border: 1px solid #ddd; background: #fff; font-weight: 700; cursor: pointer; }
+    .catalog-pagination button.active { background: #B8236B; color: #fff; border-color: #B8236B; }
+
+    .sidebar-search input { width: 100%; padding: 10px 14px; border: 1px solid #ddd; margin-bottom: 30px; outline: none; border-radius: 2px; }
+    .best-sets h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; }
+    .best-set-item { display: flex; gap: 14px; margin-bottom: 18px; }
+    .best-set-item img { width: 70px; height: 80px; object-fit: cover; background: #f2f2f2; }
+    .best-set-info h4 { font-size: 0.82rem; font-weight: 700; color: #111; line-height: 1.3; margin-bottom: 4px; }
+    .best-set-info .stars { color: #f5a623; font-size: 0.75rem; margin-bottom: 4px; }
+    .best-set-info .price { font-size: 0.85rem; font-weight: 800; }
+
+    .benefits-bar { background: #3c3a38; padding: 36px 20px; color: #ffffff; }
+    .benefits-bar__inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .benefit-item { display: flex; align-items: center; gap: 14px; }
+    .benefit-item svg { width: 28px; height: 28px; stroke: #4dd0b6; fill: none; flex-shrink: 0; }
+    .benefit-item p { font-size: 0.8rem; line-height: 1.4; color: #d0d0d0; }
+
+    .footer-main { max-width: 1200px; margin: 50px auto 30px; padding: 0 20px; }
+    .footer-copy { text-align: center; border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; font-size: 0.78rem; color: #999; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__top">
+      <div class="header__socials">
+        <a href="https://facebook.com" target="_blank" class="header__social-link"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://twitter.com" target="_blank" class="header__social-link"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+        <a href="https://instagram.com" target="_blank" class="header__social-link"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      </div>
+
+      <a href="../index.html" class="header__logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
+        <span>BEST SHOP</span>
+      </a>
+
+      <div class="header__actions">
+        <a href="#" class="header__btn" aria-label="User Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+        <a href="./cart.html" class="header__btn" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="header__cart-badge" id="cart-badge">3</span>
+        </a>
+      </div>
+    </div>
+    <div class="header__divider"></div>
+    <nav class="header__nav">
+      <ul class="header__menu">
+        <li><a href="../index.html" class="header__link">Home</a></li>
+        <li><a href="./catalog.html" class="header__link header__link--active">Catalog ⌵</a></li>
+        <li><a href="./about.html" class="header__link">About Us</a></li>
+        <li><a href="./contact.html" class="header__link">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="catalog-wrap">
+    <section class="catalog-content">
+      <div class="catalog-toolbar">
+        <div>Showing 1-9 Of 15 Results</div>
+        <div class="catalog-sort">
+          <label for="catalog-sort-select" style="display:none;">Sort products</label>
+          <select id="catalog-sort-select" class="catalog-select">
+            <option>Default Sorting</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="catalog-filter-panel" id="catalog-filter-panel">
+        <div class="filter-dropdowns-row">
+          <div class="filter-dropdown">
+            <label for="filter-category">Category</label>
+            <select id="filter-category" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="carry-ons">carry-ons</option>
+              <option value="suitcases">suitcases</option>
+              <option value="luggage sets">luggage sets</option>
+              <option value="kids' luggage">kids' luggage</option>
+            </select>
+          </div>
+
+          <div class="filter-dropdown">
+            <label for="filter-color">Color</label>
+            <select id="filter-color" class="filter-select">
+              <option value="all">All Colors</option>
+              <option value="red">red</option>
+              <option value="blue">blue</option>
+              <option value="green">green</option>
+              <option value="black">black</option>
+              <option value="grey">grey</option>
+              <option value="yellow">yellow</option>
+              <option value="pink">pink</option>
+            </select>
+          </div>
+
+          <div class="filter-dropdown">
+            <label for="filter-size">Size</label>
+            <select id="filter-size" class="filter-select">
+              <option value="all">All Sizes</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="S-L">S-L</option>
+              <option value="S, M, XL">S, M, XL</option>
+            </select>
+          </div>
+
+          <div class="filter-dropdown">
+            <label for="filter-sale">Sale Status</label>
+            <select id="filter-sale" class="filter-select">
+              <option value="all">All</option>
+              <option value="true">On Sale</option>
+              <option value="false">Regular</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-actions-bar">
+          <button type="button" class="btn-filter-action" id="btn-clear-filters">CLEAR FILTERS</button>
+          <button type="button" class="btn-filter-action" id="btn-hide-filters">HIDE FILTERS</button>
+        </div>
+      </div>
+
+      <div class="catalog-grid" id="catalog-products-grid"></div>
+
+      <div class="catalog-pagination">
+        <button type="button" class="active">1</button>
+        <button type="button">2</button>
+        <button type="button">NEXT &gt;</button>
+      </div>
+    </section>
+
+    <aside>
+      <div class="sidebar-search">
+        <input type="text" placeholder="Search Models 🔍">
+      </div>
+
+      <div class="best-sets">
+        <h3>Top Best Sets</h3>
+        <div class="best-set-item">
+          <img src="https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=150&q=80" alt="Set">
+          <div class="best-set-info">
+            <h4>Primis in faucibus aenean laoreet rhoncus ipsum eget.</h4>
+            <div class="stars">★★★★★</div>
+            <div class="price">$1000</div>
+          </div>
+        </div>
+        <div class="best-set-item">
+          <img src="https://images.unsplash.com/photo-1581553680321-4fffae59fccd?auto=format&fit=crop&w=150&q=80" alt="Set">
+          <div class="best-set-info">
+            <h4>Vestibulum in elementum erat Interdum et malesuada fames.</h4>
+            <div class="stars">★★★★★</div>
+            <div class="price">$1200</div>
+          </div>
+        </div>
+        <div class="best-set-item">
+          <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=150&q=80" alt="Set">
+          <div class="best-set-info">
+            <h4>Laoreet rhoncus ipsum eget tempus raesent convallis.</h4>
+            <div class="stars">★★★★★</div>
+            <div class="price">$2100</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="benefits-bar">
+    <div class="benefits-bar__inner">
+      <div class="benefit-item"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg><p>Velit nisl sodales eget donec quis. volutpat orci.</p></div>
+      <div class="benefit-item"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 8"/></svg><p>Dolor eu varius. Morbi fermentum velit nisl.</p></div>
+      <div class="benefit-item"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><p>Malesuada fames ac ante ipsum primis in faucibus.</p></div>
+      <div class="benefit-item"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg><p>Nisl sodales eget donec quis. volutpat orci.</p></div>
+    </div>
+  </section>
+
+  <footer class="footer-main">
+    <div class="footer-copy">&copy; Copyright 2025</div>
+  </footer>
+
+  <script type="module">
+    import { updateCartBadge } from '../js/cart.js';
+    import { initAuthModal } from '../js/auth-modal.js';
+
+    initAuthModal();
+    updateCartBadge();
+
+    const catalogData = [
+      { id: 'SU001', name: 'Global Explorer Max Comfort Suitcase Pro', price: 250, imageUrl: 'https://cdn.comfy.ua/media/catalog/product/s/n/snimok-jekrana-2026-09-30-v-09dot48dot09_7aa57.png' },
+      { id: 'SU002', name: 'Luxury Lightweight Travel Suitcase', price: 280, imageUrl: 'https://case-shop.kiev.ua/imgs/s10958.jpg' },
+      { id: 'SU003', name: 'Urban Compact Travel Suitcase', price: 310, imageUrl: 'https://img.joomcdn.net/431457e2762f7940868bf763bc48bf46fa97e3a1_original.jpeg' },
+      { id: 'SU004', name: 'Traveller\'s Comfort Weekender Suitcase', price: 240, imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWaAtu92sfQRrh7hUDeEImaGgW3XaopnGeLS18C53yBA&s' },
+      { id: 'SU005', name: 'Explorer Pro Durable Suitcase', price: 270, imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIm4JIc5hLIRhtv5Dchvr365f8GAV7rzpDOzRKQGTcpA&s=10' },
+      { id: 'SU006', name: 'Deluxe Weekender Travel Suitcase', price: 295, imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Z-G7cHiRMImhc4XmUzQWiaNhbwsWXBIyb6xC7E1hiw&s=10' },
+      { id: 'SU007', name: 'AeroLite Cabin Carry-on', price: 220, imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtypR0tGLUz57JrgFsx177ttdWDw_w7fVjvVKE_kp9EA&s=10' },
+      { id: 'SU008', name: 'Voyager Hard Shell Spinner', price: 340, imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFEmDx1_CRC1kCBmlZoPUvtxge2_kNFx2rPWYIRjlsWA&s=10' },
+      { id: 'SU009', name: 'Elite Journey Check-in Trunk', price: 390, imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9eAoF_Lm6EoS5rXNO7B-hzfYSsfZm65QUu_8D_K1yZw&s' }
+    ];
+
+    function renderCatalog() {
+      const container = document.getElementById('catalog-products-grid');
+      container.innerHTML = catalogData.map(p => `
+        <article class="product-card">
+          <span class="product-card__badge">SALE</span>
+          <a href="./product-details.html?id=${p.id}" class="product-card__img-link">
+            <img src="${p.imageUrl}" alt="${p.name}">
+          </a>
+          <h3 class="product-card__title">
+            <a href="./product-details.html?id=${p.id}">${p.name}</a>
+          </h3>
+          <div class="product-card__price">$${p.price}</div>
+          <button type="button" class="product-card__btn" onclick="addToLocal('${p.id}', '${p.name}', ${p.price}, '${p.imageUrl}', this)">Add To Cart</button>
+        </article>
+      `).join('');
+    }
+
+    window.addToLocal = function(id, name, price, imageUrl, btn) {
+      const raw = localStorage.getItem('best_shop_cart');
+      let cart = raw ? JSON.parse(raw) : [];
+      const item = cart.find(x => x.id === id);
+      if (item) item.quantity = (item.quantity || 1) + 1;
+      else cart.push({ id, name, price, quantity: 1, imageUrl });
+      localStorage.setItem('best_shop_cart', JSON.stringify(cart));
+      updateCartBadge();
+      btn.textContent = 'Added! ✓';
+      setTimeout(() => btn.textContent = 'Add To Cart', 800);
+    };
+
+    document.getElementById('btn-clear-filters')?.addEventListener('click', () => {
+      document.getElementById('filter-category').value = 'all';
+      document.getElementById('filter-color').value = 'all';
+      document.getElementById('filter-size').value = 'all';
+      document.getElementById('filter-sale').value = 'all';
+    });
+
+    document.getElementById('btn-hide-filters')?.addEventListener('click', () => {
+      const row = document.querySelector('.filter-dropdowns-row');
+      if (row) row.style.display = row.style.display === 'none' ? 'grid' : 'none';
+    });
+
+    renderCatalog();
+  </script>
+</body>
+</html>
